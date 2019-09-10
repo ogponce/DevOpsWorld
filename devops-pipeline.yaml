@@ -13,9 +13,9 @@ stages:
           vmImage: 'ubuntu-16.04'
         steps:
           - task: UseDotNet@2
-          displayName: 'dotnet installer'
-          inputs:
-            version: '2.2.401'
+            displayName: 'dotnet installer'
+            inputs:
+              version: '2.2.401'
           - script: |
               dotnet build
   - stage: 'test'
