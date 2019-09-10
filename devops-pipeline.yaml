@@ -3,7 +3,8 @@ name: $(date:yyyyMMdd)$(rev:.rr)
 
 stages:
   - stage: 'build'
-      displayName: 'build-mvc'
+    condition: succeeded()
+    displayName: 'build-mvc'
       jobs:
         - job:
           condition: succeeded()
@@ -15,6 +16,9 @@ stages:
                 echo 'build passed ...'
   - stage: 'test'
       displayName: 'test-mvc'
+      condition: succeeded()
+      dependsOn:
+        - build
       jobs:
         - job:
           condition: succeeded()
@@ -26,6 +30,9 @@ stages:
                 echo 'test passed ...'
   - stage: 'pack'
       displayName: 'pack-mvc'
+      condition: succeeded()
+      dependsOn:
+        - test
       jobs:
         - job:
           condition: succeeded()
@@ -37,6 +44,7 @@ stages:
                 echo 'pack passed ...'
   - stage: 'deploy'
       displayName: 'deploy-mvc'
+      condition: succeeded()
       jobs:
         - job:
           condition: succeeded()
@@ -48,13 +56,13 @@ stages:
                 echo 'deploy passed ...'
 
   
-triggers: 
-  - branches:
-      include: 
-        - master
-  - pr:
+trigger: 
+  branches:
+    include: 
+      - master
 
 variables:
+  testVar: 'tuesday'
 
 
 
