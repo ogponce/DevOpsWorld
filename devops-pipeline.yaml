@@ -1,0 +1,61 @@
+# devopsworld - pipeline
+
+name: $(date:yyyyMMdd)$(rev:.rr) #20190910.00
+
+stages:
+  - stage: 'build'
+      displayName: 'build-mvc'
+      jobs:
+        - job:
+          condition: succeeded()
+          displayName: 'build process'
+          pool:
+            vmImage: 'ubuntu-16.04'
+          steps:
+            - script: |
+                echo 'build passed ...'
+  - stage: 'test'
+      displayName: 'test-mvc'
+      jobs:
+        - job:
+          condition: succeeded()
+          displayName: 'test process'
+          pool:
+            vmImage: 'ubuntu-16.04'
+          steps:
+            - script: |
+                echo 'test passed ...'
+  - stage: 'pack'
+      displayName: 'pack-mvc'
+      jobs:
+        - job:
+          condition: succeeded()
+          displayName: 'pack process'
+          pool:
+            vmImage: 'ubuntu-16.04'
+          steps:
+            - script: |
+                echo 'pack passed ...'
+  - stage: 'deploy'
+      displayName: 'deploy-mvc'
+      jobs:
+        - job:
+          condition: succeeded()
+          displayName: 'deploy process'
+          pool:
+            vmImage: 'ubuntu-16.04'
+          steps:
+            - script: |
+                echo 'deploy passed ...'
+
+  
+triggers: 
+  - branches:
+      include: 
+        - master
+  - pr:
+
+variables:
+
+
+
