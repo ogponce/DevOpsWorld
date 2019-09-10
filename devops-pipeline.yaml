@@ -15,8 +15,8 @@ stages:
           - script: |
               echo 'build passed ...'
   - stage: 'test'
-      displayName: 'test-mvc'
       condition: succeeded()
+      displayName: 'test-mvc'
       dependsOn:
         - build
       jobs:
@@ -29,8 +29,8 @@ stages:
             - script: |
                 echo 'test passed ...'
   - stage: 'pack'
-      displayName: 'pack-mvc'
       condition: succeeded()
+      displayName: 'pack-mvc'
       dependsOn:
         - test
       jobs:
@@ -43,8 +43,8 @@ stages:
             - script: |
                 echo 'pack passed ...'
   - stage: 'deploy'
+      condition: succeeded()      
       displayName: 'deploy-mvc'
-      condition: succeeded()
       jobs:
         - job:
           condition: succeeded()
