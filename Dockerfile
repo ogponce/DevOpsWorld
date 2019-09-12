@@ -12,6 +12,5 @@ RUN dotnet publish DevOpsDemo.Client.csproj --no-restore -c Release -o /app
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /deploy
 COPY --from=publishstage /app .
-RUN ls
 CMD [ "dotnet", "DevOpsDemo.Client.dll" ]
 

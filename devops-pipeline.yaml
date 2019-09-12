@@ -63,22 +63,10 @@ stages:
         pool:
           vmImage: 'ubuntu-16.04'
         steps:
-          - script: |
-              echo 'pack passed ...'
-  - stage: 'deploy'
-    condition: succeeded()      
-    displayName: 'deploy-mvc'
-    jobs:
-      - job:
-        condition: succeeded()
-        displayName: 'deploy process'
-        pool:
-          vmImage: 'ubuntu-16.04'
-        steps:
           - task: Docker@2
             inputs:
               command: 'login'
-              containerRegistry: 'ogponce'
+              containerRegistry: 'docker'
             displayName: 'docker login'
           - script: |
               docker image build --file Dockerfile --tag devopsdemo
@@ -87,8 +75,24 @@ stages:
           - task: Docker@2
             inputs:
               command: 'logout'
-              containerRegistry: 'ogponce'
-            displayName: 'docker logout'
+              containerRegistry: 'docker'
+            displayName: 'docker login'
+  - stage: 'deploy'
+    condition: succeeded('pack')      
+    displayName: 'deploy-mvc'
+    jobs:
+      - job:
+        condition: succeeded()
+        displayName: 'deploy process'
+        pool:
+          vmImage: 'ubuntu-16.04'
+        steps:
+          - task: AzureWebAppContainer@1
+            inputs:
+              azureSubscription: 'Free Trial(f660ef8c-2cb0-40b0-b79d-e6e9afd35f41)'
+              appName: 'devopsdemo09122019'
+              containers: 'oscargeoponce/devopsdemo'
+          
 
   
 trigger: 
