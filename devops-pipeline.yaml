@@ -34,7 +34,7 @@ stages:
               version: '2.2.401'
           - script: |
               dotnet tool install --global dotnet-sonarscanner
-              dotnet sonarscanner begin /k:"devopsworld2019" /o:"ogponce" /d:sonar.login="127ed3734457eb1aecc589dfc72de6fb671e4bff" /d"sonar.host.url="https://sonarcloud.io"
+              dotnet sonarscanner begin /k:"devopsworld2019" /o:"ogponce" /d:sonar.login="127ed3734457eb1aecc589dfc72de6fb671e4bff" /d:"sonar.host.url="https://sonarcloud.io"
               dotnet build
               dotnet test --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=\"cobertura,opencover\" /p:Exclude=[xunit*]*
               dotnet sonarscanner end /d:sonar.login="127ed3734457eb1aecc589dfc72de6fb671e4bff" 
