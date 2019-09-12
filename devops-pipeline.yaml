@@ -1,5 +1,4 @@
-
-name: $(date:yyyyMMdd)$(rev:.rr) 
+name: $(date:yyyyMMdd)$(rev:.rr)
 
 stages:
   - stage: 'build'
@@ -8,21 +7,20 @@ stages:
     jobs:
       - job:
         condition: succeeded()
-        displayName: 'build process'
+        displayName: 'build-process'
         pool:
           vmImage: 'ubuntu-16.04'
         steps:
           - task: UseDotNet@2
             displayName: 'dotnet installer'
             inputs:
-              version: '2.2.401'
+              version: '2.2.401' 
           - script: |
               dotnet build
+
   - stage: 'test'
     condition: succeeded()
     displayName: 'test-mvc'
-    dependsOn:
-      - build
     jobs:
       - job:
         condition: succeeded()
@@ -53,9 +51,9 @@ stages:
 
   - stage: 'pack'
     condition: succeeded()
-    displayName: 'pack-mvc'
     dependsOn:
       - test
+    displayName: 'pack-mvc'
     jobs:
       - job:
         condition: succeeded()
@@ -77,8 +75,11 @@ stages:
               command: 'logout'
               containerRegistry: 'docker'
             displayName: 'docker login'
+
   - stage: 'deploy'
-    condition: succeeded('pack')      
+    condition: succeeded('pack')
+    dependsOn:
+      - test      
     displayName: 'deploy-mvc'
     jobs:
       - job:
@@ -92,9 +93,7 @@ stages:
               azureSubscription: 'Free Trial(f660ef8c-2cb0-40b0-b79d-e6e9afd35f41)'
               appName: 'devopsdemo09122019'
               containers: 'oscargeoponce/devopsdemo'
-          
-
-  
+           
 trigger: 
   branches:
     include: 
