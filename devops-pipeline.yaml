@@ -34,10 +34,10 @@ stages:
               version: '2.2.401'
           - script: |
               dotnet tool install --global dotnet-sonarscanner
-              dotnet sonarscanner begin /k:"devopsworld2019" /o:"ogponce-github" /d:sonar.login="127ed3734457eb1aecc589dfc72de6fb671e4bff" /d:sonar.host.url="https://sonarcloud.io"
+              dotnet sonarscanner begin /k:"devopsworld2019" /o:"ogponce-github" /d:sonar.login="556e16ae506ef9678a7443f50b95f977b498243a" /d:sonar.host.url="https://sonarcloud.io"
               dotnet build
               dotnet test --logger trx /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=\"cobertura,opencover\" /p:Exclude=[xunit*]*
-              dotnet sonarscanner end /d:sonar.login="127ed3734457eb1aecc589dfc72de6fb671e4bff" 
+              dotnet sonarscanner end /d:sonar.login="556e16ae506ef9678a7443f50b95f977b498243a" 
           - task: PublishTestResults@2
             displayName: 'publish result::unit-test'
             inputs:
