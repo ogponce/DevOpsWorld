@@ -68,8 +68,8 @@ stages:
             displayName: 'docker login'
           - script: |
               docker image build --file Dockerfile --tag devopsdemo .
-              docker image tag devopsdemo oscargeoponce/devopsdemo
-              docker push oscargeoponce/devopsdemo
+              docker image tag devopsdemo ogponce/devopsdemo
+              docker push ogponce/devopsdemo
           - task: Docker@2
             inputs:
               command: 'logout'
