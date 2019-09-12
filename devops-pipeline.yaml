@@ -48,7 +48,7 @@ stages:
             inputs:
               codeCoverageTool: cobertura
               summaryFileLocation: '**/coverage.cobertura.xml'
-
+              
   - stage: 'pack'
     condition: succeeded()
     dependsOn:
