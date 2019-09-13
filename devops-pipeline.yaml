@@ -79,7 +79,7 @@ stages:
   - stage: 'deploy'
     condition: succeeded('pack')
     dependsOn:
-      - test      
+      - pack     
     displayName: 'deploy-mvc'
     jobs:
       - job:
@@ -94,13 +94,13 @@ stages:
               appName: 'devopsdemo09122019'
               containers: 'oscargeoponce/devopsdemo'
            
-trigger: 
+trigger:
   branches:
-    include: 
+    include:
       - master
 
 variables:
-  testVar: 'tuesday'
+  sonar: '556e16ae506ef9678a7443f50b95f977b498243a'
 
 
 
